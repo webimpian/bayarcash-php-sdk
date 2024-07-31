@@ -8,7 +8,7 @@ use Webimpian\BayarcashSdk\Resources\TransactionResource;
 
 trait FpxDirectDebitPaymentIntent
 {
-    public function createFpxDirectDebitEnrollmentIntent(array $data)
+    public function createFpxDirectDebitEnrollment(array $data)
     {
         return new FpxDirectDebitApplicationResource(
             $this->post('mandates', $data),
@@ -16,7 +16,7 @@ trait FpxDirectDebitPaymentIntent
         );
     }
 
-    public function createFpxDirectDebitMaintenanceIntent($mandateId, array $data)
+    public function createFpxDirectDebitMaintenance($mandateId, array $data)
     {
         return new FpxDirectDebitApplicationResource(
             $this->put('mandates/' . $mandateId, $data),
@@ -24,7 +24,7 @@ trait FpxDirectDebitPaymentIntent
         );
     }
 
-    public function createFpxDirectDebitTerminationIntent($mandateId, array $data)
+    public function createFpxDirectDebitTermination($mandateId, array $data)
     {
         return new FpxDirectDebitApplicationResource(
             $this->delete('mandates/' . $mandateId, $data),
