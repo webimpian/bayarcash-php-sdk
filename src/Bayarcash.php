@@ -154,7 +154,7 @@ class Bayarcash
         $baseUri = 'https://console.bayar.cash/api/v2/';
 
         if ($this->sandbox) {
-            $baseUri = 'https://console.bayarcash.dev/api/v2/';
+            $baseUri = 'https://console.bayarcash-sandbox.com/api/v2/';
         }
 
         return $baseUri;
