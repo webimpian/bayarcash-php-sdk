@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The [Bayarcash](https://bayarcash.com/) SDK provides an expressive interface for interacting with Bayarcash's API.
+The [Bayarcash](https://bayarcash.com/) SDK provides an expressive interface for interacting with Bayarcash API.
 
 ## Official Documentation
 
