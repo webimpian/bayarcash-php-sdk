@@ -67,7 +67,7 @@ class Resource
     protected function transformCollection(array $collection, $class, array $extraData = [])
     {
         return array_map(function ($data) use ($class, $extraData) {
-            return new ($class($data + $extraData, $this->bayarcash));
+            return new $class($data + $extraData, $this->bayarcash);
         }, $collection);
     }
 }
