@@ -22,6 +22,10 @@ class Bayarcash
     const FPX_LINE_OF_CREDIT = 4;
     const DUITNOW_DOBW = 5;
 
+    const DUITNOW_QR = 6;
+    const SPAYLATER = 7;
+    const BOOST_PAYFLEX = 8;
+
     /**
      * The Bayarcash API Key.
      *
