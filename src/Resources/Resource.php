@@ -4,7 +4,6 @@ namespace Webimpian\BayarcashSdk\Resources;
 
 use Webimpian\BayarcashSdk\Bayarcash;
 
-#[\AllowDynamicProperties]
 class Resource
 {
     /**

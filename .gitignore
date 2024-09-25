@@ -5,3 +5,4 @@ src/.DS_Store
 .idea/modules.xml
 .idea/php.xml
 .idea/vcs.xml
+.idea/workspace.xml

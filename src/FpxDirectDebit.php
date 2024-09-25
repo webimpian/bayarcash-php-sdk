@@ -41,9 +41,9 @@ class FpxDirectDebit
     const STATUS_CANCELLED = 7;
     const STATUS_ERROR = 8;
 
-    public static function getStatusText($statusCode)
+    protected static function getStatusLabels()
     {
-        return match ((int)$statusCode) {
+        return [
             self::STATUS_NEW => 'New',
             self::STATUS_WAITING_APPROVAL => 'Waiting Approval',
             self::STATUS_FAILED_BANK_VERIFICATION => 'Bank Verification Failed',
@@ -53,26 +53,38 @@ class FpxDirectDebit
             self::STATUS_ERROR => 'Error',
             self::STATUS_ACTIVE => 'Active',
             self::STATUS_TERMINATED => 'Terminated',
-            default => 'UNKNOWN STATUS',
-        };
+        ];
     }
 
-    public static function getApplicationTypeText($statusCode)
+    public static function getStatusText(int $statusCode)
     {
-        return match ($statusCode) {
-            self::ENROLMENT => 'Enrollment',
-            self::MAINTENANCE => 'Maintenance',
-            self::TERMINATION => 'Termination',
-        };
+        $statuses = self::getStatusLabels();
+        return $statuses[$statusCode] ?? 'UNKNOWN STATUS';
+    }
+
+    public static function getApplicationTypeText($applicationType)
+    {
+        switch ($applicationType) {
+            case self::ENROLMENT:
+                return 'Enrollment';
+            case self::MAINTENANCE:
+                return 'Maintenance';
+            case self::TERMINATION:
+                return 'Termination';
+        }
     }
 
     public static function getFrequencyModeText($frequencyModeCode)
     {
-        return match ($frequencyModeCode) {
-            self::MODE_DAILY => 'Daily',
-            self::MODE_WEEKLY => 'Weekly',
-            self::MODE_MONTHLY => 'Monthly',
-            self::MODE_YEARLY => 'Yearly',
-        };
+        switch ($frequencyModeCode) {
+            case self::MODE_DAILY:
+                return 'Daily';
+            case self::MODE_WEEKLY:
+                return 'Weekly';
+            case self::MODE_MONTHLY:
+                return 'Monthly';
+            case self::MODE_YEARLY:
+                return 'Yearly';
+        }
     }
 }

@@ -13,15 +13,20 @@ class Fpx
     const STATUS_SUCCESS = 3;
     const STATUS_CANCELLED = 4;
 
-    public static function getStatusText($statusCode)
+    protected static function getStatusLabels()
     {
-        return match ((int)$statusCode) {
+        return [
             self::STATUS_NEW => 'New',
             self::STATUS_PENDING => 'Pending',
             self::STATUS_CANCELLED => 'Cancelled',
             self::STATUS_SUCCESS => 'Successful',
             self::STATUS_FAILED => 'Failed',
-            default => 'UNKNOWN STATUS',
-        };
+        ];
+    }
+
+    public static function getStatusText(int $statusCode)
+    {
+        $statuses = self::getStatusLabels();
+        return $statuses[$statusCode] ?? 'UNKNOWN STATUS';
     }
 }
