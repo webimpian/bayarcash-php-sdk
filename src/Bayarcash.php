@@ -25,6 +25,8 @@ class Bayarcash
     const DUITNOW_QR = 6;
     const SPAYLATER = 7;
     const BOOST_PAYFLEX = 8;
+    const QRISOB = 9;
+    const QRISWALLET = 10;
 
     /**
      * The Bayarcash API Key.
