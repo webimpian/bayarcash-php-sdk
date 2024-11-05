@@ -28,6 +28,8 @@ class Bayarcash
     const QRISOB = 9;
     const QRISWALLET = 10;
 
+    const NETS = 11;
+
     /**
      * The Bayarcash API Key.
      *
