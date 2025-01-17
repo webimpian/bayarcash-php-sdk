@@ -11,4 +11,12 @@ class PaymentIntentResource extends Resource
     public string $orderNumber;
     public float $amount;
     public string $url;
+
+    public string $type;
+    public string $id;
+    public string $status;
+    public $lastAttempt; 
+    public ?string $paidAt;
+    public string $currency;
+    public array $attempts;
 }

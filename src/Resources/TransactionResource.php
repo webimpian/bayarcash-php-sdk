@@ -6,6 +6,7 @@ class TransactionResource extends Resource
 {
     public string $id;
     public string $updatedAt;
+    public string $createdAt;
     public string $datetime;
     public string $payerName;
     public string $payerEmail;

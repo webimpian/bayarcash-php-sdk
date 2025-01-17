@@ -109,6 +109,13 @@ $validTransaction = $bayarcash->verifyTransactionCallbackData(CALLBACK_DATA, API
 $validReturnUrl = $bayarcash->verifyReturnUrlCallbackData(CALLBACK_DATA, API_SECRET_KEY);
 ```
 
+### Payment Intent Management
+
+```php
+// Get payment intent details (V3 API only)
+$paymentIntent = $bayarcash->getPaymentIntent('payment_intent_id');
+```
+
 ### Transaction Management
 
 ```php
