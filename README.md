@@ -4,44 +4,43 @@
 
 The [Bayarcash](https://bayarcash.com/) SDK provides an expressive interface for interacting with Bayarcash's Payment Gateway API. This SDK supports both API v2 and v3, with enhanced features available in v3.
 
-## Installation
+## Official Documentation
 
-Install the SDK via Composer:
+### Installation
+
+To install the SDK in your project you need to require the package via composer:
 
 ```bash
 composer require webimpian/bayarcash-php-sdk
 ```
 
-## Configuration
+### Basic Usage
 
-### Basic Setup
+You can create an instance of the SDK like so:
 
 ```php
-use Webimpian\BayarcashSdk\Bayarcash;
-
-$bayarcash = new Bayarcash(TOKEN_HERE);
-
-// Optional: Use sandbox environment
-$bayarcash->useSandbox();
-
-// Optional: Set API version (default is 'v2')
-$bayarcash->setApiVersion('v3');
-
-// Optional: Set custom timeout
-$bayarcash->setTimeout(60);
+$bayarcash = new Webimpian\BayarcashSdk\Bayarcash(TOKEN_HERE);
+$bayarcash->useSandbox(); // call this method to switch to use sandbox
 ```
 
-### Laravel Integration
+For Laravel user:
 
-1. Add your credentials to `.env`:
-```env
-BAYARCASH_API_TOKEN=your_token_here
-BAYARCASH_API_SECRET_KEY=your_secret_key_here
+```php
+// set value for BAYARCASH_API_TOKEN and BAYARCASH_API_SECRET_KEY in the .env file
+BAYARCASH_API_TOKEN=
+BAYARCASH_API_SECRET_KEY=
 ```
 
-2. Access the SDK:
 ```php
 $bayarcash = app(\Webimpian\BayarcashSdk\Bayarcash::class);
+$bayarcash->useSandbox(); // call this method to switch to use sandbox
+```
+
+### Configuration Options
+
+```php
+// Optional: Set API version (default is 'v2')
+$bayarcash->setApiVersion('v3');
 ```
 
 ## Available Payment Channels
@@ -80,22 +79,34 @@ $channels = $bayarcash->getChannels('your_portal_key');
 $banks = $bayarcash->fpxBanksList();
 ```
 
-### Payment Intents
+### Payment Processing
+
+> Note: The checksum value and checksum validation are optional, but it is recommended for enhanced security.
 
 ```php
-// Create a new payment intent
-$paymentIntent = $bayarcash->createPaymentIntent([
-    'amount' => 100.00,
-    'currency' => 'MYR',
-    'payment_channel' => Bayarcash::FPX,
-    // ... other parameters
-]);
+// Generate checksum for payment intent
+$paymentIntentRequestChecksum = $bayarcash->createPaymentIntenChecksumValue(API_SECRET_KEY, REQUEST_DATA); 
 
-// Redirect to payment page
-header("Location: " . $paymentIntent->url);
+// append checksum value to your REQUEST_DATA
+$data['checksum'] = $paymentIntentRequestChecksum;
 
-// Get payment intent details (v3 only)
-$paymentIntent = $bayarcash->getPaymentIntent('payment_intent_id');
+// Send payment request
+$response = $bayarcash->createPaymentIntent(REQUEST_DATA);
+header("Location: " . $response->url); // redirect payer to Bayarcash checkout page.
+```
+
+### Callback Verification
+
+```php
+// Verify callbacks
+// pre-transaction callback
+$validPreTransaction = $bayarcash->verifyPreTransactionCallbackData(CALLBACK_DATA, API_SECRET_KEY);
+
+// transaction callback
+$validTransaction = $bayarcash->verifyTransactionCallbackData(CALLBACK_DATA, API_SECRET_KEY);
+
+// return URL callback
+$validReturnUrl = $bayarcash->verifyReturnUrlCallbackData(CALLBACK_DATA, API_SECRET_KEY);
 ```
 
 ### Transaction Management
@@ -109,7 +120,7 @@ if ($bayarcash->getApiVersion() === 'v3') {
     // Get all transactions with filters
     $transactions = $bayarcash->getAllTransactions([
         'order_number' => 'ORDER123',
-        'status' => 'completed',
+        'status' => '3',
         'payment_channel' => Bayarcash::FPX,
         'exchange_reference_number' => 'REF123',
         'payer_email' => 'customer@example.com'
@@ -118,88 +129,43 @@ if ($bayarcash->getApiVersion() === 'v3') {
     // Specialized transaction queries
     $orderTransactions = $bayarcash->getTransactionByOrderNumber('ORDER123');
     $emailTransactions = $bayarcash->getTransactionsByPayerEmail('customer@example.com');
-    $statusTransactions = $bayarcash->getTransactionsByStatus('completed');
+    $statusTransactions = $bayarcash->getTransactionsByStatus('3');
     $channelTransactions = $bayarcash->getTransactionsByPaymentChannel(Bayarcash::FPX);
     $refTransaction = $bayarcash->getTransactionByReferenceNumber('REF123');
 }
 ```
 
-### Security Features
-
-#### Checksum Generation and Validation
-
-```php
-// Generate checksum for payment intent
-$checksum = $bayarcash->createPaymentIntenChecksumValue(
-    'your_api_secret_key',
-    $requestData
-);
-
-// Verify callbacks
-$validPreTransaction = $bayarcash->verifyPreTransactionCallbackData(
-    $callbackData,
-    'your_api_secret_key'
-);
-
-$validTransaction = $bayarcash->verifyTransactionCallbackData(
-    $callbackData,
-    'your_api_secret_key'
-);
-
-$validTransaction = $bayarcash->verifyReturnUrlCallbackData(
-    $callbackData,
-    'your_api_secret_key'
-);
-```
-
 ### FPX Direct Debit Features
 
-#### 1. Enrolment
+#### 1. FPX Direct Debit Enrolment
 
 ```php
-// Generate enrolment checksum
-$checksum = $bayarcash->createFpxDirectDebitEnrolmentChecksumValue(
-    'your_api_secret_key',
-    $enrolmentData
-);
+$enrolmentRequestChecksum = $bayarcash->createFpxDirectDebitEnrolmentChecksumValue(API_SECRET_KEY, REQUEST_DATA); 
 
-// Create enrolment intent
-$response = $bayarcash->createFpxDirectDebitEnrollmentIntent([
-    'checksum' => $checksum,
-    // ... other parameters
-]);
+// append checksum value to your REQUEST_DATA
+$data['checksum'] = $enrolmentRequestChecksum;
 
-// Redirect to enrolment page
-header("Location: " . $response->url);
+$response = $bayarcash->createFpxDirectDebitEnrollmentIntent($data);
+header("Location: " . $response->url); // redirect payer to Bayarcash Fpx Direct Debit enrolment page.
 ```
 
-#### 2. Maintenance
+#### 2. FPX Direct Debit Maintenance
 
 ```php
-// Generate maintenance checksum
-$checksum = $bayarcash->createFpxDirectDebitMaintenanceChecksumValue(
-    'your_api_secret_key',
-    $maintenanceData
-);
+$maintenanceRequestChecksum = $bayarcash->createFpxDirectDebitMaintenanceChecksumValue(API_SECRET_KEY, REQUEST_DATA); 
 
-// Create maintenance intent
-$response = $bayarcash->createFpxDirectDebitMaintenanceIntent([
-    'checksum' => $checksum,
-    // ... other parameters
-]);
+// append checksum value to your REQUEST_DATA
+$data['checksum'] = $maintenanceRequestChecksum;
 
-// Redirect to maintenance page
-header("Location: " . $response->url);
+$response = $bayarcash->createFpxDirectDebitMaintenanceIntent($data);
+header("Location: " . $response->url); // redirect payer to Bayarcash Fpx Direct Debit maintenance page.
 ```
 
-#### 3. Termination
+#### 3. FPX Direct Debit Termination
 
 ```php
-// Create termination intent
-$response = $bayarcash->createFpxDirectDebitTerminationIntent($terminationData);
-
-// Redirect to termination page
-header("Location: " . $response->url);
+$response = $bayarcash->createFpxDirectDebitTerminationIntent($data);
+header("Location: " . $response->url); // redirect payer to Bayarcash Fpx Direct Debit termination page.
 ```
 
 ## Security Recommendations
@@ -212,7 +178,7 @@ header("Location: " . $response->url);
 
 ## API Documentation
 
-For detailed API specifications, please refer to the [Official Bayarcash API Documentation](https://api.webimpian.support/bayarcash).
+Please refer to the [Official Bayarcash API Documentation](https://api.webimpian.support/bayarcash) for detailed information about our API.
 
 ## Support
 
