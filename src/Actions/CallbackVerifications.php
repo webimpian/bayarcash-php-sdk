@@ -104,6 +104,28 @@ trait CallbackVerifications
         return hash_hmac('sha256', $payload, $secretKey) === $callbackChecksum;
     }
 
+    public function verifyReturnUrlCallbackData(array $callbackData, string $secretKey)
+    {
+        $callbackChecksum = $callbackData['checksum'];
+
+        $payload = [
+            'transaction_id' => $callbackData['transaction_id'],
+            'exchange_reference_number' => $callbackData['exchange_reference_number'],
+            'exchange_transaction_id' => $callbackData['exchange_transaction_id'],
+            'order_number' => $callbackData['order_number'],
+            'currency' => $callbackData['currency'],
+            'amount' => $callbackData['amount'],
+            'payer_bank_name' => $callbackData['payer_bank_name'],
+            'status' => $callbackData['status'],
+            'status_description' => $callbackData['status_description'],
+        ];
+
+        ksort($payload);
+        $payload = implode('|', $payload);
+
+        return hash_hmac('sha256', $payload, $secretKey) === $callbackChecksum;
+    }
+
     public function verifyPreTransactionCallbackData(array $callbackData, ?string $secretKey)
     {
         $callbackChecksum = $callbackData['checksum'];
