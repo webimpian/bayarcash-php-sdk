@@ -2,6 +2,9 @@
 
 All notable changes to will be documented in this file.
 
+## 2.0.3 - 2025-02-07
+- Fix small bug
+- 
 ## 2.0.2 - 2024-01-18
 - Support for `guzzlehttp/guzzle ^7.0`.
 
