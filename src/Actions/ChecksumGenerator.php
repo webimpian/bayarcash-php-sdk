@@ -12,7 +12,13 @@ trait ChecksumGenerator
         return hash_hmac('sha256', $payloadString, $secretKey);
     }
 
+    // Old typo version, kept for backward compatibility
     public function createPaymentIntenChecksumValue($secretKey, $data)
+    {
+        return $this->createPaymentIntentChecksumValue($secretKey, $data);
+    }
+
+    public function createPaymentIntentChecksumValue($secretKey, $data)
     {
         $payload = [
             'payment_channel' => $data['payment_channel'],
