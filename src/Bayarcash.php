@@ -13,12 +13,14 @@ class Bayarcash
     use Actions\FpxDirectDebitPaymentIntent,
         Actions\CallbackVerifications,
         Actions\ChecksumGenerator,
+        Actions\ManualBankTransfer,
         MakesHttpRequests;
 
     /*
      * Payment Channels
      */
     const FPX = 1;
+    const MANUAL_TRANSFER = 2;
     const FPX_DIRECT_DEBIT = 3;
     const FPX_LINE_OF_CREDIT = 4;
     const DUITNOW_DOBW = 5;
