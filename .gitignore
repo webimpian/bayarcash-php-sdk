@@ -12,3 +12,4 @@ src/.DS_Store
 /tests/local/
 /tests/local/config.local.php
 *.log
+.claude/settings.local.json
