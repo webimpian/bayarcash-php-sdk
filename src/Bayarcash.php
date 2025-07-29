@@ -30,6 +30,10 @@ class Bayarcash
     const QRISOB = 9;
     const QRISWALLET = 10;
     const NETS = 11;
+    const CREDIT_CARD = 12;
+    const ALIPAY = 13;
+    const WECHATPAY = 14;
+    const PROMPTPAY = 15;
 
     /**
      * The Bayarcash API Key.

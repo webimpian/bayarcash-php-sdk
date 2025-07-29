@@ -2,6 +2,10 @@
 
 All notable changes to will be documented in this file.
 
+## 2.0.5 - 2025-07-29
+### Added
+- Add CREDIT_CARD, ALIPAY,PROMPTPAY and WECHATPAY payment channel id.
+
 ## 2.0.4 - 2025-04-29
 ### Added
 - Added helper to submit manual transfers to Bayarcash.

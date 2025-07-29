@@ -6,3 +6,9 @@ src/.DS_Store
 .idea/php.xml
 .idea/vcs.xml
 .idea/workspace.xml
+/test.php
+/test-*.php
+/.env
+/tests/local/
+/tests/local/config.local.php
+*.log

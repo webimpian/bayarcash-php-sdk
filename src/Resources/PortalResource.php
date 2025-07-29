@@ -17,4 +17,6 @@ class PortalResource extends Resource
     public array $splitPaymentMerchants;
     public array $paymentChannels;
     public array $merchant;
+    public ?string $url;
+    public ?string $merchantId;
 }
