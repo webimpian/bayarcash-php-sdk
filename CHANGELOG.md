@@ -2,6 +2,10 @@
 
 All notable changes to will be documented in this file.
 
+## 2.0.6 - 2025-11-10
+### Added
+- Add TOUCH_N_GO, BOOST_WALLET, GRABPAY, GRABPL, and SHOPEE_PAY payment channel id.
+
 ## 2.0.5 - 2025-07-29
 ### Added
 - Add CREDIT_CARD, ALIPAY,PROMPTPAY and WECHATPAY payment channel id.

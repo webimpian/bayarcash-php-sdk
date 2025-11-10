@@ -34,6 +34,11 @@ class Bayarcash
     const ALIPAY = 13;
     const WECHATPAY = 14;
     const PROMPTPAY = 15;
+    const TOUCH_N_GO = 16;
+    const BOOST_WALLET = 17;
+    const GRABPAY = 18;
+    const GRABPL = 19;
+    const SHOPEE_PAY = 21;
 
     /**
      * The Bayarcash API Key.

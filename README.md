@@ -49,15 +49,25 @@ The SDK supports multiple payment channels:
 
 ```php
 Bayarcash::FPX                 // FPX Online Banking
-Bayarcash::FPX_DIRECT_DEBIT   // FPX Direct Debit
-Bayarcash::FPX_LINE_OF_CREDIT // FPX Line of Credit
-Bayarcash::DUITNOW_DOBW       // DuitNow Online Banking
-Bayarcash::DUITNOW_QR         // DuitNow QR
-Bayarcash::SPAYLATER          // ShopeePayLater
-Bayarcash::BOOST_PAYFLEX      // Boost PayFlex
-Bayarcash::QRISOB            // QRIS Online Banking
-Bayarcash::QRISWALLET        // QRIS Wallet
-Bayarcash::NETS              // NETS
+Bayarcash::MANUAL_TRANSFER     // Manual Bank Transfer
+Bayarcash::FPX_DIRECT_DEBIT    // FPX Direct Debit
+Bayarcash::FPX_LINE_OF_CREDIT  // FPX Line of Credit
+Bayarcash::DUITNOW_DOBW        // DuitNow Online Banking
+Bayarcash::DUITNOW_QR          // DuitNow QR
+Bayarcash::SPAYLATER           // ShopeePayLater
+Bayarcash::BOOST_PAYFLEX       // Boost PayFlex
+Bayarcash::QRISOB              // QRIS Online Banking
+Bayarcash::QRISWALLET          // QRIS Wallet
+Bayarcash::NETS                // NETS
+Bayarcash::CREDIT_CARD         // Credit Card
+Bayarcash::ALIPAY              // Alipay
+Bayarcash::WECHATPAY           // WeChat Pay
+Bayarcash::PROMPTPAY           // PromptPay
+Bayarcash::TOUCH_N_GO          // Touch 'n Go eWallet
+Bayarcash::BOOST_WALLET        // Boost Wallet
+Bayarcash::GRABPAY             // GrabPay
+Bayarcash::GRABPL              // Grab PayLater
+Bayarcash::SHOPEE_PAY          // ShopeePay
 ```
 
 ## Core Features
