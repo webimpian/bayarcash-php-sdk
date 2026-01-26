@@ -10,7 +10,7 @@ class PaymentIntentResource extends Resource
     public ?string $payerTelephoneNumber;
     public string $orderNumber;
     public float $amount;
-    public string $url;
+    public ?string $url;
 
     public string $type;
     public string $id;
