@@ -303,6 +303,25 @@ class Bayarcash
         );
     }
 
+	/**
+	 * Cancel payment intent.
+	 *
+	 * @param  string  $paymentIntentId
+	 * @return \Webimpian\BayarcashSdk\Resources\PaymentIntentResource
+	 * @throws \Exception If the API version is not v3
+	 */
+	public function cancelPaymentIntent(string $paymentIntentId)
+	{
+		if ($this->apiVersion !== 'v3') {
+			throw new \Exception('The getPaymentIntent method is only available for API version v3.');
+		}
+
+		return new PaymentIntentResource(
+			$this->delete('payment-intents/' . $paymentIntentId),
+			$this
+		);
+	}
+
     /**
      * Get all transactions with optional filters.
      *

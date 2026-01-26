@@ -2,6 +2,11 @@
 
 All notable changes to will be documented in this file.
 
+## 2.1.0 - 2026-01-26
+### Added
+- Added new Payment Intent features:
+  - `cancelPaymentIntent` method to cancel payment intent
+
 ## 2.0.6 - 2025-11-10
 ### Added
 - Add TOUCH_N_GO, BOOST_WALLET, GRABPAY, GRABPL, and SHOPEE_PAY payment channel id.
