@@ -69,4 +69,32 @@ class Resource
             return new $class($data + $extraData, $this->bayarcash);
         }, $collection);
     }
+
+	/**
+	 * Get the instance as an array.
+	 *
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		$array = [];
+
+		foreach (get_object_vars($this) as $key => $value) {
+			if ($key === 'bayarcash') {
+				continue;
+			}
+
+			if ($value instanceof self) {
+				$array[$key] = $value->toArray();
+			} elseif (is_array($value)) {
+				$array[$key] = array_map(function ($item) {
+					return $item instanceof self ? $item->toArray() : $item;
+				}, $value);
+			} else {
+				$array[$key] = $value;
+			}
+		}
+
+		return $array;
+	}
 }

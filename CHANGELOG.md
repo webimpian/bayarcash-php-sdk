@@ -2,6 +2,10 @@
 
 All notable changes to will be documented in this file.
 
+## 2.1.1 - 2026-01-28
+### Added
+- Add toArray() method to convert Resource instances to array format with support for nested Resource objects and arrays of Resources.
+
 ## 2.1.0 - 2026-01-26
 ### Added
 - Added new Payment Intent features:
