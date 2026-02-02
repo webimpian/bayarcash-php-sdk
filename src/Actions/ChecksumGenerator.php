@@ -20,18 +20,26 @@ trait ChecksumGenerator
 
     public function createPaymentIntentChecksumValue($secretKey, $data)
     {
-        $payload = [
-            'payment_channel' => $data['payment_channel'],
-            'order_number' => $data['order_number'],
-            'amount' => $data['amount'],
-            'payer_name' => $data['payer_name'],
-            'payer_email' => $data['payer_email'],
-        ];
+	    $paymentChannel = $data['payment_channel'] ?? [];
 
-        ksort($payload);
-        $payloadString = implode('|', $payload);
+	    $paymentChannel = is_array($paymentChannel)
+		    ? $paymentChannel
+		    : [$paymentChannel];
 
-        return hash_hmac('sha256', $payloadString, $secretKey);
+	    $paymentChannel = implode(',', $paymentChannel);
+
+	    $payload = [
+		    'payment_channel' => $paymentChannel,
+		    'order_number' => $data['order_number'],
+		    'amount' => $data['amount'],
+		    'payer_name' => $data['payer_name'],
+		    'payer_email' => $data['payer_email'],
+	    ];
+
+	    ksort($payload);
+	    $payloadString = implode('|', $payload);
+
+	    return hash_hmac('sha256', $payloadString, $secretKey);
     }
 
     public function createFpxDIrectDebitEnrolmentChecksumValue($secretKey, $data)

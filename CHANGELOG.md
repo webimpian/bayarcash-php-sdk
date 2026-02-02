@@ -2,6 +2,13 @@
 
 All notable changes to will be documented in this file.
 
+## 2.1.2 - 2026-02-03
+### Changed
+- Refactored checksum generation:
+  - `payment_channel` can now be omitted, null, an integer, or an array of integers.
+  - Payment channels are normalized to a comma-separated string before checksum calculation.
+  - Payload sorting and HMAC-SHA256 hash generation remain the same.
+
 ## 2.1.1 - 2026-01-28
 ### Added
 - Add toArray() method to convert Resource instances to array format with support for nested Resource objects and arrays of Resources.
